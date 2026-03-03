@@ -977,7 +977,7 @@ body {
   </div>
 </div>
 
-<div style="position:fixed;top:74px;left:10px;font-family:'Press Start 2P',monospace;font-size:7px;color:#555;z-index:50">by cog studios</div>
+<div id="secret-admin-trigger" style="position:fixed;top:74px;left:10px;font-family:'Press Start 2P',monospace;font-size:7px;color:#555;z-index:50">by cog studios</div>
 <button id="reset-btn" onclick="resetGame()">RESET</button>
 <div id="overlay"></div>
 <div id="offline-banner">
@@ -2121,21 +2121,19 @@ function adminRemoveRebirth() {
   updateUI();
 }
 
-// Secret admin toggle: press A-D-M-I-N in sequence
+// Secret admin toggle: tap "by cog studios" 5 times
 (function(){
-  const code = ['a','d','m','i','n'];
-  let idx = 0;
-  document.addEventListener('keydown', function(e) {
-    if (e.key.toLowerCase() === code[idx]) {
-      idx++;
-      if (idx === code.length) {
-        const panel = document.getElementById('admin-panel');
-        panel.style.display = panel.style.display === 'none' ? '' : 'none';
-        idx = 0;
-      }
-    } else {
-      idx = 0;
+  let clicks = 0, timer;
+  document.getElementById('secret-admin-trigger').addEventListener('click', function(e) {
+    e.stopPropagation();
+    clicks++;
+    clearTimeout(timer);
+    if (clicks >= 5) {
+      const panel = document.getElementById('admin-panel');
+      panel.style.display = panel.style.display === 'none' ? '' : 'none';
+      clicks = 0;
     }
+    timer = setTimeout(function(){ clicks = 0; }, 2000);
   });
 })();
 
