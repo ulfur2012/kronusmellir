@@ -961,7 +961,7 @@ body {
         <button id="rebirth-btn" class="btn btn-rebirth" onclick="doRebirth()"></button>
       </div>
     </div>
-    <div id="admin-panel" class="panel">
+    <div id="admin-panel" class="panel" style="display:none">
       <div class="panel-title">ADMIN</div>
       <div class="panel-body">
         <button class="btn-admin" onclick="adminAdd(5000)">+5,000 kr</button>
@@ -2120,6 +2120,24 @@ function adminRemoveRebirth() {
   state.totalRebirths = Math.max(0, state.totalRebirths - 1);
   updateUI();
 }
+
+// Secret admin toggle: press A-D-M-I-N in sequence
+(function(){
+  const code = ['a','d','m','i','n'];
+  let idx = 0;
+  document.addEventListener('keydown', function(e) {
+    if (e.key.toLowerCase() === code[idx]) {
+      idx++;
+      if (idx === code.length) {
+        const panel = document.getElementById('admin-panel');
+        panel.style.display = panel.style.display === 'none' ? '' : 'none';
+        idx = 0;
+      }
+    } else {
+      idx = 0;
+    }
+  });
+})();
 
 init();
 </script>
