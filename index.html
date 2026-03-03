@@ -100,6 +100,15 @@ body {
 #coin.paper.bill-10000 {
   background: linear-gradient(135deg, #8a3a5a, #7a2e4e 30%, #6a2440 60%, #5a1a34);
 }
+#coin.paper.bill-50000,
+#coin.paper.bill-100000 {
+  background: none;
+  border: none;
+  box-shadow: none;
+  width: 320px;
+  height: 210px;
+  overflow: hidden;
+}
 #coin.paper:active { transform: scale(0.94) translateY(3px); box-shadow:
     0 0 0 3px #0f0e2e,
     0 0 0 6px #4a4,
@@ -337,6 +346,8 @@ body {
 }
 
 
+
+
 /* ── Reset button ── */
 #reset-btn {
   position: fixed;
@@ -527,6 +538,344 @@ body {
   text-align: center;
   padding: 24px;
 }
+
+/* ── Pet Store button ── */
+#pet-btn {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  padding: 8px 12px;
+  background: #6e2a6e;
+  border: 3px solid #cc55cc;
+  color: #faf;
+  cursor: pointer;
+}
+#pet-btn:hover { background: #8e3a8e; }
+
+/* ── Pet Store modal ── */
+#pet-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 1000;
+}
+#pet-modal {
+  display: none;
+  position: fixed;
+  top: 2vh;
+  left: 2vw;
+  right: 2vw;
+  bottom: 2vh;
+  background: #1a1a3e;
+  border: 6px solid #cc55cc;
+  z-index: 1001;
+  max-width: 500px;
+  margin: 0 auto;
+  flex-direction: column;
+  overflow: hidden;
+}
+.pet-header {
+  background: #3a1a4e;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 4px solid #cc55cc;
+}
+.pet-header h2 { font-size: 12px; color: #faf; }
+.pet-close {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  background: none;
+  border: none;
+  color: #888;
+  cursor: pointer;
+}
+.pet-close:hover { color: #fff; }
+.pet-body {
+  padding: 16px;
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.pet-balance {
+  font-size: 9px;
+  color: #aaa;
+}
+#pet-roll-btn {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  padding: 14px 28px;
+  background: #6e2a6e;
+  border: 4px solid #cc55cc;
+  color: #faf;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+#pet-roll-btn:hover { background: #8e3a8e; }
+#pet-roll-btn.disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+#pet-roll-btn.disabled:hover { background: #6e2a6e; }
+#rare-roll-btn {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  padding: 14px 28px;
+  background: #1a5a5a;
+  border: 4px solid #55e5e5;
+  color: #55e5e5;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+#rare-roll-btn:hover { background: #2a6e6e; }
+#rare-roll-btn.disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+#rare-roll-btn.disabled:hover { background: #1a5a5a; }
+.pet-result {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.pet-result-card {
+  width: 120px;
+  height: 120px;
+  position: relative;
+  image-rendering: pixelated;
+}
+.pet-result-card .pet-bg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  image-rendering: pixelated;
+}
+.pet-result-card .pet-sprite {
+  width: 80%;
+  height: 80%;
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  object-fit: contain;
+  image-rendering: pixelated;
+  z-index: 1;
+}
+.pet-result-name {
+  font-size: 10px;
+  color: #fff;
+}
+.pet-result-rarity {
+  font-size: 8px;
+}
+.pet-result-bonus {
+  font-size: 8px;
+  color: #ffd700;
+}
+.rarity-common { color: #ccc; }
+.rarity-uncommon { color: #7ecf7e; }
+.rarity-rare { color: #55e5e5; }
+.rarity-epic { color: #aa55ff; }
+.rarity-legendary { color: #ff5555; }
+
+/* Pet collection */
+.pet-collection-title {
+  font-size: 9px;
+  color: #888;
+  width: 100%;
+  border-top: 2px solid #333;
+  padding-top: 12px;
+}
+.pet-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  width: 100%;
+}
+.pet-slot {
+  width: 80px;
+  height: 110px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.pet-slot-card {
+  width: 64px;
+  height: 64px;
+  position: relative;
+  image-rendering: pixelated;
+}
+.pet-slot-card .pet-bg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  image-rendering: pixelated;
+}
+.pet-slot-card .pet-sprite {
+  width: 80%;
+  height: 80%;
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  object-fit: contain;
+  image-rendering: pixelated;
+  z-index: 1;
+}
+.pet-slot-name {
+  font-size: 6px;
+  color: #ccc;
+  text-align: center;
+  max-width: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pet-slot-mult {
+  font-size: 6px;
+  color: #ffd700;
+}
+.pet-equipped {
+  border: 2px solid #ffd700;
+  box-shadow: 0 0 8px rgba(255,215,0,0.5);
+}
+.pet-slot-level {
+  font-size: 5px;
+  color: #fff;
+  background: #333380;
+  padding: 1px 3px;
+  border-radius: 2px;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  z-index: 2;
+  line-height: 1;
+}
+.pet-combine-selected {
+  border: 2px solid #00ff88;
+  box-shadow: 0 0 10px rgba(0,255,136,0.6);
+}
+.pet-combine-dimmed {
+  opacity: 0.3;
+  pointer-events: none;
+}
+#pet-combine-btn {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 9px;
+  padding: 10px 20px;
+  background: #1a5a2a;
+  border: 4px solid #00ff88;
+  color: #aaffcc;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+#pet-combine-btn:hover { background: #2a7a3a; }
+#pet-combine-cancel {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  padding: 8px 14px;
+  background: #5a1a1a;
+  border: 3px solid #ff4444;
+  color: #ffaaaa;
+  cursor: pointer;
+  display: none;
+}
+#pet-combine-cancel:hover { background: #7a2a2a; }
+
+/* Equipped pet icon (beside coin) */
+#equipped-pet-wrap {
+  display: none;
+  position: absolute;
+  right: -550px;
+  top: 50%;
+  transform: translateY(-50%);
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+#equipped-pet-icon {
+  width: 96px;
+  height: 96px;
+  position: relative;
+  cursor: pointer;
+  image-rendering: pixelated;
+  transition: transform 0.15s;
+}
+#equipped-pet-icon:hover { transform: scale(1.1); }
+#equipped-pet-icon .pet-bg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  image-rendering: pixelated;
+}
+#equipped-pet-icon .pet-sprite {
+  width: 80%;
+  height: 80%;
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  object-fit: contain;
+  image-rendering: pixelated;
+  z-index: 1;
+}
+#equipped-pet-label {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 9px;
+  color: #ffd700;
+  text-align: center;
+}
+
+/* Crate animation */
+@keyframes crateShake {
+  0% { transform: rotate(0deg); }
+  15% { transform: rotate(12deg); }
+  30% { transform: rotate(-12deg); }
+  45% { transform: rotate(10deg); }
+  60% { transform: rotate(-10deg); }
+  75% { transform: rotate(6deg); }
+  90% { transform: rotate(-4deg); }
+  100% { transform: rotate(0deg); }
+}
+@keyframes crateBurst {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.6; }
+  100% { transform: scale(0); opacity: 0; }
+}
+@keyframes petReveal {
+  0% { transform: scale(0) rotate(-180deg); opacity: 0; }
+  60% { transform: scale(1.2) rotate(10deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+.pet-reveal-anim {
+  animation: petReveal 0.5s ease-out;
+}
+.pet-crate {
+  width: 100px;
+  height: 100px;
+  font-size: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+.pet-crate.shaking {
+  animation: crateShake 0.6s ease-in-out;
+}
+.pet-crate.bursting {
+  animation: crateBurst 0.3s ease-in forwards;
+}
 </style>
 </head>
 <body>
@@ -542,6 +891,7 @@ body {
       <div style="width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#ff8888,#ff4444 50%,#aa2222);border:2px solid #cc3333;box-shadow:0 0 6px rgba(255,68,68,0.5);display:flex;align-items:center;justify-content:center;font-size:7px;color:#fff;font-family:'Press Start 2P',monospace" id="rebirth-icon">R</div>
       <span id="rebirth-count"></span>
     </div>
+    <button id="pet-btn" onclick="openPetStore()">GÆLUDÝR</button>
     <button id="lb-btn" onclick="openLB()">STIGATAFLA</button>
   </div>
 </div>
@@ -552,6 +902,10 @@ body {
       <div id="coin-icon"></div>
       <div id="coin-value">1</div>
       <div id="coin-label">kr</div>
+    </div>
+    <div id="equipped-pet-wrap" onclick="openPetStore()">
+      <div id="equipped-pet-icon"></div>
+      <div id="equipped-pet-label"></div>
     </div>
   </div>
   <div id="click-info"></div>
@@ -579,12 +933,49 @@ body {
   </div>
 </div>
 
+<div style="position:fixed;top:74px;left:10px;font-family:'Press Start 2P',monospace;font-size:7px;color:#555;z-index:50">by cog studios</div>
 <button id="reset-btn" onclick="resetGame()">RESET</button>
 <div id="overlay"></div>
 <div id="offline-banner">
   <h2>Velkomin aftur!</h2>
   <p id="offline-text"></p>
   <button onclick="closeOffline()">Takk!</button>
+</div>
+
+<div id="pet-overlay" onclick="closePetStore()"></div>
+<div id="pet-modal">
+  <div class="pet-header">
+    <h2>GÆLUDÝRAVERSLUN</h2>
+    <button class="pet-close" onclick="closePetStore()">X</button>
+  </div>
+  <div class="pet-body">
+    <div class="pet-balance">Endurfæðingar kr: <span id="pet-balance" style="color:#ff6666">0</span></div>
+    <div class="pet-crate" id="pet-crate">📦</div>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;align-items:center">
+      <div style="text-align:center">
+        <button id="pet-roll-btn" onclick="rollPet()">VENJULEGUR KASSI</button>
+        <div style="font-size:7px;color:#888;margin-top:4px">Verð: <span style="color:#ff6666">1</span> endurfæðingar kr</div>
+      </div>
+      <div style="text-align:center">
+        <button id="rare-roll-btn" onclick="rollRarePet()">SJALDGÆFUR KASSI</button>
+        <div style="font-size:7px;color:#55e5e5;margin-top:4px">Verð: <span style="color:#ff6666">5</span> endurfæðingar kr</div>
+      </div>
+    </div>
+    <div class="pet-result" id="pet-result">
+      <div class="pet-result-card" id="pet-result-card"></div>
+      <div class="pet-result-name" id="pet-result-name"></div>
+      <div class="pet-result-rarity" id="pet-result-rarity"></div>
+      <div class="pet-result-bonus" id="pet-result-bonus"></div>
+    </div>
+    <div id="pet-equip-info" style="font-size:7px;color:#888;display:none">Smelltu á gæludýr til að búa það út</div>
+    <div id="pet-combine-area" style="display:flex;gap:8px;justify-content:center;align-items:center;flex-wrap:wrap">
+      <button id="pet-combine-btn" onclick="toggleCombineMode()" style="display:none">SAMEINA</button>
+      <button id="pet-combine-cancel" onclick="cancelCombineMode()">HÆTTA VIÐ</button>
+      <div id="pet-combine-status" style="font-size:7px;color:#00ff88;display:none"></div>
+    </div>
+    <div class="pet-collection-title">SÖFNUN</div>
+    <div class="pet-grid" id="pet-grid"></div>
+  </div>
 </div>
 
 <div id="lb-overlay" onclick="closeLB()"></div>
@@ -633,7 +1024,7 @@ async function submitScore() {
   try {
     const res = await fetch(LB_URL, { headers: { 'Accept': 'application/json' } });
     const data = await res.json();
-    data[lbMyId] = { name: name, rebirthKr: state.rebirthKr, lastUpdated: Date.now() };
+    data[lbMyId] = { name: name, rebirthKr: state.totalRebirths, lastUpdated: Date.now() };
     await fetch(LB_URL, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
@@ -828,33 +1219,38 @@ const ICONS = {
 
 const COIN_LEVELS = [
   { name: '1 kr',     value: 1,      cost: 0,         img: 'img/1kr.png',     size: 140, color: 'silver' },
-  { name: '5 kr',     value: 5,      cost: 100,       img: 'img/5kr.png',     size: 160, color: 'silver' },
-  { name: '10 kr',    value: 10,     cost: 500,       img: 'img/10kr.png',    size: 180, color: 'silver', offsetX: 8 },
-  { name: '50 kr',    value: 50,     cost: 5000,      img: 'img/50kr.png',    size: 200, color: 'gold' },
-  { name: '100 kr',   value: 100,    cost: 50000,     img: 'img/100kr.png',   size: 220, color: 'gold' },
-  { name: '500 kr',   value: 500,    cost: 500000,    img: 'img/500kr.png' },
-  { name: '1000 kr',  value: 1000,   cost: 5000000,   img: 'img/1000kr.png' },
-  { name: '5000 kr',  value: 5000,   cost: 50000000,  img: 'img/5000kr.png' },
-  { name: '10000 kr', value: 10000,  cost: 500000000, img: 'img/10000kr.png' },
+  { name: '5 kr',     value: 5,      cost: 50,        img: 'img/5kr.png',     size: 160, color: 'silver' },
+  { name: '10 kr',    value: 10,     cost: 200,       img: 'img/10kr.png',    size: 180, color: 'silver', offsetX: 8 },
+  { name: '50 kr',    value: 50,     cost: 2000,      img: 'img/50kr.png',    size: 200, color: 'gold' },
+  { name: '100 kr',   value: 100,    cost: 20000,     img: 'img/100kr.png',   size: 220, color: 'gold' },
+  { name: '500 kr',   value: 500,    cost: 200000,    img: 'img/500kr.png' },
+  { name: '1000 kr',  value: 1000,   cost: 2000000,   img: 'img/1000kr.png' },
+  { name: '5000 kr',  value: 5000,   cost: 20000000,  img: 'img/5000kr.png' },
+  { name: '10000 kr', value: 10000,  cost: 200000000, img: 'img/10000kr.png' },
+  { name: '50000 kr',  value: 50000,  cost: 2000000000,  img: 'img/debitcard.png' },
+  { name: '100000 kr', value: 100000, cost: 20000000000, img: 'img/debitcard2.png' },
 ];
 
 const GENERATORS = [
-  { id: 'sjoppa',      name: 'Sjoppa',        desc: 'Lítil búð á horninu',          baseKps: 1,       baseCost: 25 },
-  { id: 'pylsuvagn',   name: 'Pylsuvagn',     desc: 'Bæjarins beztu',               baseKps: 5,       baseCost: 200 },
-  { id: 'vinbud',      name: 'Vínbúð',        desc: 'Ríkið',                        baseKps: 25,      baseCost: 1000 },
-  { id: 'bakari',      name: 'Bakarí',        desc: 'Ferskt brauð á hverjum degi',  baseKps: 100,     baseCost: 5000 },
-  { id: 'banki',       name: 'Arion banki',   desc: 'Peningarnir vaxa',             baseKps: 500,     baseCost: 40000 },
-  { id: 'sedlabanki',  name: 'Seðlabanki',    desc: 'Prenta krónum',                baseKps: 2500,    baseCost: 300000 },
-  { id: 'hafsja',      name: 'Fiskifloti',    desc: 'Gullin í sjónum',              baseKps: 10000,   baseCost: 2000000 },
-  { id: 'alþingi',     name: 'Alþingi',       desc: 'Stjórna fjárlögum',            baseKps: 50000,   baseCost: 15000000 },
-  { id: 'orkuver',     name: 'Orkuver',       desc: 'Jarðvarmi skilar sér',         baseKps: 250000,  baseCost: 100000000 },
-  { id: 'tunglstod',   name: 'Tunglstöð',     desc: 'Króna á tunglinu',             baseKps: 1000000,  baseCost: 1000000000 },
-  { id: 'jardvarma',   name: 'Jarðvarmaorku', desc: 'Orka úr iðrum jarðar',         baseKps: 5000000,  baseCost: 10000000000 },
+  { id: 'sjoppa',      name: 'Sjoppa',        desc: 'Lítil búð á horninu',          baseKps: 0.5,     baseCost: 25 },
+  { id: 'pylsuvagn',   name: 'Pylsuvagn',     desc: 'Bæjarins beztu',               baseKps: 2,       baseCost: 200 },
+  { id: 'vinbud',      name: 'Vínbúð',        desc: 'Ríkið',                        baseKps: 10,      baseCost: 1000 },
+  { id: 'bakari',      name: 'Bakarí',        desc: 'Ferskt brauð á hverjum degi',  baseKps: 40,      baseCost: 5000 },
+  { id: 'banki',       name: 'Arion banki',   desc: 'Peningarnir vaxa',             baseKps: 200,     baseCost: 40000 },
+  { id: 'sedlabanki',  name: 'Seðlabanki',    desc: 'Prenta krónum',                baseKps: 1000,    baseCost: 300000 },
+  { id: 'hafsja',      name: 'Fiskifloti',    desc: 'Gullin í sjónum',              baseKps: 4000,    baseCost: 2000000 },
+  { id: 'alþingi',     name: 'Alþingi',       desc: 'Stjórna fjárlögum',            baseKps: 20000,   baseCost: 15000000 },
+  { id: 'orkuver',     name: 'Orkuver',       desc: 'Jarðvarmi skilar sér',         baseKps: 100000,  baseCost: 100000000 },
+  { id: 'tunglstod',   name: 'Tunglstöð',     desc: 'Króna á tunglinu',             baseKps: 400000,  baseCost: 1000000000 },
+  { id: 'jardvarma',   name: 'Jarðvarmaorku', desc: 'Orka úr iðrum jarðar',         baseKps: 2000000,  baseCost: 10000000000 },
 ];
 
 const COST_SCALE = 1.15;
 
-const REBIRTH_COST = 10000000000; // 10 billion to rebirth
+const REBIRTH_BASE_COST = 10000000000; // 10 billion to rebirth
+function getRebirthCost() {
+  return Math.floor(REBIRTH_BASE_COST * Math.pow(3, state.totalRebirths));
+}
 
 let state = {
   balance: 0,
@@ -862,6 +1258,9 @@ let state = {
   coinLevel: 0,
   generators: {},
   rebirthKr: 0,
+  totalRebirths: 0,
+  pets: [],
+  equippedPet: null,
   lastSave: Date.now(),
 };
 
@@ -879,16 +1278,33 @@ function fmt(n) {
 
 // ── Rebirth multiplier ──
 function getRebirthMultiplier() {
-  return 1 + state.rebirthKr;
+  return 1 + state.totalRebirths;
 }
 
 function getRebirthCostMultiplier() {
-  return Math.pow(1.5, state.rebirthKr);
+  return Math.pow(1.5, state.totalRebirths);
+}
+
+// ── Click Sound ──
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+function playClickSound() {
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+  osc.type = 'square';
+  osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(400, audioCtx.currentTime + 0.06);
+  gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
+  osc.start(audioCtx.currentTime);
+  osc.stop(audioCtx.currentTime + 0.08);
 }
 
 // ── Click ──
 function handleClick(e) {
-  const clickValue = COIN_LEVELS[state.coinLevel].value * getRebirthMultiplier();
+  playClickSound();
+  const clickValue = COIN_LEVELS[state.coinLevel].value * getRebirthMultiplier() * getEquippedPetMultiplier();
   state.balance += clickValue;
   state.totalEarned += clickValue;
   spawnFloatText(e, clickValue);
@@ -941,7 +1357,7 @@ function getTotalKps() {
   GENERATORS.forEach(g => {
     total += g.baseKps * state.generators[g.id];
   });
-  return total * getRebirthMultiplier();
+  return total * getRebirthMultiplier() * getEquippedPetMultiplier();
 }
 
 // ── Passive Income Loop ──
@@ -962,7 +1378,7 @@ function tick() {
 function updateBalanceDisplay() {
   document.getElementById('balance-display').textContent = fmt(state.balance) + ' kr';
   const rebirthCount = document.getElementById('rebirth-count');
-  rebirthCount.textContent = state.rebirthKr + (state.rebirthKr > 0 ? ' (x' + getRebirthMultiplier() + ')' : '');
+  rebirthCount.textContent = state.rebirthKr + (state.totalRebirths > 0 ? ' (x' + getRebirthMultiplier() + ')' : '');
 
   const kps = getTotalKps();
   const clickVal = COIN_LEVELS[state.coinLevel].value;
@@ -986,7 +1402,7 @@ function updateBalanceDisplay() {
   // Rebirth button state
   const rebirthBtn = document.getElementById('rebirth-btn');
   if (rebirthBtn) {
-    rebirthBtn.className = 'btn btn-rebirth' + (state.totalEarned >= REBIRTH_COST ? '' : ' disabled');
+    rebirthBtn.className = 'btn btn-rebirth' + (state.totalEarned >= getRebirthCost() ? '' : ' disabled');
   }
 }
 
@@ -1003,7 +1419,7 @@ function updateUI() {
   coinValue.textContent = level.value;
 
   // Switch between coin and paper money at 500kr+
-  const billClasses = { 500: 'bill-500', 1000: 'bill-1000', 5000: 'bill-5000', 10000: 'bill-10000' };
+  const billClasses = { 500: 'bill-500', 1000: 'bill-1000', 5000: 'bill-5000', 10000: 'bill-10000', 50000: 'bill-50000', 100000: 'bill-100000' };
   coinEl.className = '';
   if (level.value >= 500) {
     coinEl.classList.add('paper', billClasses[level.value] || 'bill-500');
@@ -1011,16 +1427,19 @@ function updateUI() {
     coinEl.style.height = '';
     if (level.img) {
       coinIcon.style.display = '';
-      coinIcon.innerHTML = '<img src="' + level.img + '" style="width:100%;height:100%;object-fit:contain;image-rendering:pixelated;pointer-events:none">';
-      coinIcon.style.width = '160px';
-      coinIcon.style.height = '90px';
+      var isCard = level.value >= 50000;
+      var iconW = isCard ? '320px' : '160px';
+      var iconH = isCard ? '210px' : '90px';
+      coinIcon.innerHTML = '<img src="' + level.img + '" style="width:100%;height:100%;object-fit:' + (isCard ? 'cover' : 'contain') + ';image-rendering:pixelated;pointer-events:none">';
+      coinIcon.style.width = iconW;
+      coinIcon.style.height = iconH;
       coinIcon.style.marginLeft = (level.offsetX || 0) + 'px';
       coinValue.style.display = 'none';
     } else {
       coinIcon.style.display = 'none';
       coinValue.style.display = '';
     }
-    coinLabel.style.display = '';
+    coinLabel.style.display = isCard ? 'none' : '';
   } else {
     if (level.color === 'silver') coinEl.classList.add('silver');
     coinIcon.style.display = '';
@@ -1078,12 +1497,16 @@ function updateUI() {
 
   // Rebirth panel
   const mult = getRebirthMultiplier();
+  const clickVal = COIN_LEVELS[state.coinLevel].value * mult;
+  const kpsVal = getTotalKps();
   document.getElementById('rebirth-kr-display').innerHTML =
-    'Endurfæðingar kr: <span style="color:#ff6666">' + state.rebirthKr + '</span> (x' + mult + ' margfaldari)';
-  const canRebirth = state.totalEarned >= REBIRTH_COST;
+    'Endurfæðingar kr: <span style="color:#ff6666">' + state.rebirthKr + '</span><br>' +
+    '<span style="font-size:8px;color:#aaa">' + fmt(clickVal) + ' kr/smell · ' + fmt(kpsVal) + ' kr/sek</span>';
+  const rebirthCost = getRebirthCost();
+  const canRebirth = state.totalEarned >= rebirthCost;
   document.getElementById('rebirth-info').innerHTML =
-    'Þéna ' + fmt(REBIRTH_COST) + ' kr samtals til að endurfæðast.<br>' +
-    'Framvinda: <span>' + fmt(state.totalEarned) + ' / ' + fmt(REBIRTH_COST) + '</span><br>' +
+    'Þéna ' + fmt(rebirthCost) + ' kr samtals til að endurfæðast.<br>' +
+    'Framvinda: <span>' + fmt(state.totalEarned) + ' / ' + fmt(rebirthCost) + '</span><br>' +
     'Þú færð <span>+1 endurfæðingar kr</span> (x' + (mult + 1) + ' margfaldari)';
   const rebirthBtn = document.getElementById('rebirth-btn');
   rebirthBtn.textContent = 'ENDURFÆÐAST';
@@ -1092,9 +1515,10 @@ function updateUI() {
 
 // ── Rebirth ──
 function doRebirth() {
-  if (state.totalEarned < REBIRTH_COST) return;
+  if (state.totalEarned < getRebirthCost()) return;
   if (!confirm('Ertu viss? Allt nema endurfæðingar kr verður endurstillt!')) return;
   state.rebirthKr++;
+  state.totalRebirths++;
   state.balance = 0;
   state.totalEarned = 0;
   state.coinLevel = 0;
@@ -1113,6 +1537,9 @@ function resetGame() {
   state.totalEarned = 0;
   state.coinLevel = 0;
   state.rebirthKr = 0;
+  state.totalRebirths = 0;
+  state.pets = [];
+  state.equippedPet = null;
   GENERATORS.forEach(g => { state.generators[g.id] = 0; });
   saveGame();
   updateUI();
@@ -1133,6 +1560,10 @@ function loadGame() {
     state.totalEarned = saved.totalEarned || 0;
     state.coinLevel = saved.coinLevel || 0;
     state.rebirthKr = saved.rebirthKr || 0;
+    state.totalRebirths = saved.totalRebirths || saved.rebirthKr || 0;
+    state.pets = saved.pets || [];
+    state.pets.forEach(function(p) { if (!p.level) p.level = 1; });
+    state.equippedPet = saved.equippedPet || null;
     state.lastSave = saved.lastSave || Date.now();
     GENERATORS.forEach(g => {
       state.generators[g.id] = (saved.generators && saved.generators[g.id]) || 0;
@@ -1159,6 +1590,425 @@ function closeOffline() {
 }
 
 // ── Init ──
+// ── Pet System ──
+const PET_ROLL_COST = 1;
+const RARE_ROLL_COST = 5;
+const RARE_RARITIES = ['rare', 'epic', 'legendary'];
+const LEVEL_BONUS = {
+  common: 0.10,
+  uncommon: 0.15,
+  rare: 0.20,
+  epic: 0.30,
+  legendary: 1.50,
+};
+const MAX_PET_LEVEL = 5;
+const PET_RARITIES = [
+  { id: 'common',    name: 'Algengt',     bg: 'img/pets/bg-common.png',    weight: 50, multRange: [1.05, 1.15] },
+  { id: 'uncommon',  name: 'Sjaldgæft',   bg: 'img/pets/bg-uncommon.png',  weight: 30, multRange: [1.15, 1.30] },
+  { id: 'rare',      name: 'Sjaldséð',    bg: 'img/pets/bg-rare.png',      weight: 14, multRange: [1.30, 1.50] },
+  { id: 'epic',      name: 'Epískt',      bg: 'img/pets/bg-epic.png',      weight: 5,  multRange: [1.50, 2.00] },
+  { id: 'legendary', name: 'Goðsögn',     bg: 'img/pets/bg-legendary.png', weight: 1,  multRange: [5.00, 8.00] },
+];
+
+const PET_TYPES = [
+  { id: 'money-man',      name: 'Money Man',      sprite: 'img/pets/money-man.png',      rarity: 'common' },
+  { id: 'friendly-phone', name: 'Friendly Phone',  sprite: 'img/pets/friendly-phone.png', rarity: 'uncommon' },
+  { id: 'frog-blob',      name: 'Frog Blob',       sprite: 'img/pets/frog-blob.png',      rarity: 'rare' },
+  { id: 'oni-mask',       name: 'Oni Mask',        sprite: 'img/pets/oni-mask.png',       rarity: 'epic' },
+  { id: 'bob',            name: 'Bob',             sprite: 'img/pets/bob.png',            rarity: 'legendary' },
+];
+
+function rollRarity(pool) {
+  pool = pool || PET_RARITIES;
+  const totalWeight = pool.reduce((s, r) => s + r.weight, 0);
+  let roll = Math.random() * totalWeight;
+  for (const r of pool) {
+    roll -= r.weight;
+    if (roll <= 0) return r;
+  }
+  return pool[0];
+}
+
+function rollMultiplier(rarity) {
+  const [min, max] = rarity.multRange;
+  return +(min + Math.random() * (max - min)).toFixed(2);
+}
+
+function getPetRollCost() {
+  return PET_ROLL_COST;
+}
+
+function getPetsForRarity(rarityId) {
+  return PET_TYPES.filter(p => p.rarity === rarityId);
+}
+
+let petRolling = false;
+let combineMode = false;
+let combineSelected = [];
+function rollPet() {
+  const cost = getPetRollCost();
+  if (state.rebirthKr < cost || petRolling) return;
+  petRolling = true;
+  state.rebirthKr -= cost;
+  updatePetStoreUI();
+  updateUI();
+
+  // Hide previous result
+  document.getElementById('pet-result').style.display = 'none';
+
+  // Crate shake animation
+  const crate = document.getElementById('pet-crate');
+  crate.style.display = 'flex';
+  crate.className = 'pet-crate shaking';
+
+  setTimeout(function() {
+    // Burst the crate
+    crate.className = 'pet-crate bursting';
+
+    setTimeout(function() {
+      crate.style.display = 'none';
+      crate.className = 'pet-crate';
+
+      const rarity = rollRarity();
+      const mult = rollMultiplier(rarity);
+      let pool = getPetsForRarity(rarity.id);
+      if (pool.length === 0) pool = PET_TYPES;
+      const petType = pool[Math.floor(Math.random() * pool.length)];
+      const pet = {
+        id: Date.now() + '_' + Math.random().toString(36).substr(2, 5),
+        typeId: petType.id,
+        rarity: rarity.id,
+        multiplier: mult,
+        level: 1,
+      };
+      if (!state.pets) state.pets = [];
+      state.pets.push(pet);
+      saveGame();
+      showPetResult(pet);
+      updatePetGrid();
+      updatePetStoreUI();
+      updateEquippedPetIcon();
+      updateUI();
+      petRolling = false;
+    }, 300);
+  }, 700);
+}
+
+function rollRarePet() {
+  if (state.rebirthKr < RARE_ROLL_COST || petRolling) return;
+  petRolling = true;
+  state.rebirthKr -= RARE_ROLL_COST;
+  updatePetStoreUI();
+  updateUI();
+
+  document.getElementById('pet-result').style.display = 'none';
+
+  const crate = document.getElementById('pet-crate');
+  crate.style.display = 'flex';
+  crate.className = 'pet-crate shaking';
+
+  setTimeout(function() {
+    crate.className = 'pet-crate bursting';
+
+    setTimeout(function() {
+      crate.style.display = 'none';
+      crate.className = 'pet-crate';
+
+      const rarePool = PET_RARITIES.filter(r => RARE_RARITIES.indexOf(r.id) !== -1);
+      const rarity = rollRarity(rarePool);
+      const mult = rollMultiplier(rarity);
+      let pool = getPetsForRarity(rarity.id);
+      if (pool.length === 0) pool = PET_TYPES;
+      const petType = pool[Math.floor(Math.random() * pool.length)];
+      const pet = {
+        id: Date.now() + '_' + Math.random().toString(36).substr(2, 5),
+        typeId: petType.id,
+        rarity: rarity.id,
+        multiplier: mult,
+        level: 1,
+      };
+      if (!state.pets) state.pets = [];
+      state.pets.push(pet);
+      saveGame();
+      showPetResult(pet);
+      updatePetGrid();
+      updatePetStoreUI();
+      updateEquippedPetIcon();
+      updateUI();
+      petRolling = false;
+    }, 300);
+  }, 700);
+}
+
+function showPetResult(pet) {
+  const rarity = PET_RARITIES.find(r => r.id === pet.rarity);
+  const petType = PET_TYPES.find(p => p.id === pet.typeId);
+  const resultEl = document.getElementById('pet-result');
+  const cardEl = document.getElementById('pet-result-card');
+  const nameEl = document.getElementById('pet-result-name');
+  const rarityEl = document.getElementById('pet-result-rarity');
+  const bonusEl = document.getElementById('pet-result-bonus');
+
+  var spriteHtml = petType && petType.sprite ? '<img class="pet-sprite" src="' + petType.sprite + '">' : '';
+  var levelBadge = '<div class="pet-slot-level" style="font-size:8px;top:4px;left:4px">Lv.' + (pet.level || 1) + '</div>';
+  cardEl.innerHTML = '<img class="pet-bg" src="' + rarity.bg + '">' + spriteHtml + levelBadge;
+  cardEl.className = 'pet-result-card pet-reveal-anim';
+  nameEl.textContent = petType ? petType.name : 'Gæludýr';
+  rarityEl.textContent = rarity.name;
+  rarityEl.className = 'pet-result-rarity rarity-' + rarity.id;
+  bonusEl.textContent = 'Lv.' + (pet.level || 1) + ' — x' + pet.multiplier + ' margfaldari';
+  resultEl.style.display = 'flex';
+
+  // Reset animation
+  void cardEl.offsetWidth;
+  cardEl.className = 'pet-result-card pet-reveal-anim';
+}
+
+function equipPet(petId) {
+  state.equippedPet = state.equippedPet === petId ? null : petId;
+  saveGame();
+  updatePetGrid();
+  updateEquippedPetIcon();
+  updateUI();
+}
+
+function updateEquippedPetIcon() {
+  const wrapEl = document.getElementById('equipped-pet-wrap');
+  const iconEl = document.getElementById('equipped-pet-icon');
+  const labelEl = document.getElementById('equipped-pet-label');
+  if (!state.pets || !state.equippedPet) {
+    wrapEl.style.display = 'none';
+    return;
+  }
+  const pet = state.pets.find(p => p.id === state.equippedPet);
+  if (!pet) {
+    wrapEl.style.display = 'none';
+    return;
+  }
+  const rarity = PET_RARITIES.find(r => r.id === pet.rarity);
+  const petType = PET_TYPES.find(p => p.id === pet.typeId);
+  var spriteHtml = petType && petType.sprite ? '<img class="pet-sprite" src="' + petType.sprite + '">' : '';
+  iconEl.innerHTML = '<img class="pet-bg" src="' + rarity.bg + '">' + spriteHtml;
+  wrapEl.style.display = 'flex';
+  labelEl.innerHTML = (petType ? petType.name : rarity.name) + '<br><span style="font-size:8px;color:#aaa">Lv.' + (pet.level || 1) + '</span>' + '<br><span style="font-size:14px;color:#ffd700">x' + pet.multiplier + '</span>';
+}
+
+function getEquippedPetMultiplier() {
+  if (!state.pets || !state.equippedPet) return 1;
+  const pet = state.pets.find(p => p.id === state.equippedPet);
+  return pet ? pet.multiplier : 1;
+}
+
+function updatePetGrid() {
+  var grid = document.getElementById('pet-grid');
+  if (!state.pets || state.pets.length === 0) {
+    grid.innerHTML = '<div style="font-size:8px;color:#555;padding:16px">Engin gæludýr enn</div>';
+    document.getElementById('pet-equip-info').style.display = 'none';
+    document.getElementById('pet-combine-btn').style.display = 'none';
+    return;
+  }
+  document.getElementById('pet-equip-info').style.display = combineMode ? 'none' : '';
+  var canCombine = hasCombinablePets();
+  document.getElementById('pet-combine-btn').style.display = canCombine && !combineMode ? '' : 'none';
+
+  var combineTypeId = null;
+  var combineLevel = null;
+  if (combineMode && combineSelected.length > 0) {
+    var firstPet = state.pets.find(function(p) { return p.id === combineSelected[0]; });
+    if (firstPet) {
+      combineTypeId = firstPet.typeId;
+      combineLevel = firstPet.level || 1;
+    }
+  }
+
+  var html = '';
+  state.pets.forEach(function(pet) {
+    var rarity = PET_RARITIES.find(function(r) { return r.id === pet.rarity; });
+    var petType = PET_TYPES.find(function(p) { return p.id === pet.typeId; });
+    var isEquipped = state.equippedPet === pet.id;
+    var petLevel = pet.level || 1;
+    var isSelected = combineSelected.indexOf(pet.id) !== -1;
+
+    var dimmed = false;
+    if (combineMode && combineTypeId !== null) {
+      if (pet.typeId !== combineTypeId || petLevel !== combineLevel) dimmed = true;
+    }
+    if (combineMode && petLevel >= MAX_PET_LEVEL) dimmed = true;
+
+    var spriteHtml = petType && petType.sprite ? '<img class="pet-sprite" src="' + petType.sprite + '">' : '';
+    var cardClass = 'pet-slot-card';
+    if (isEquipped && !combineMode) cardClass += ' pet-equipped';
+    if (isSelected) cardClass += ' pet-combine-selected';
+
+    var slotClass = 'pet-slot';
+    if (dimmed) slotClass += ' pet-combine-dimmed';
+
+    var clickHandler = combineMode
+      ? 'selectForCombine(\'' + pet.id + '\')'
+      : 'equipPet(\'' + pet.id + '\')';
+
+    html += '<div class="' + slotClass + '" onclick="' + clickHandler + '" style="cursor:pointer">' +
+      '<div class="' + cardClass + '">' +
+        '<img class="pet-bg" src="' + rarity.bg + '">' + spriteHtml +
+        '<div class="pet-slot-level">Lv.' + petLevel + '</div>' +
+      '</div>' +
+      '<div class="pet-slot-name rarity-' + rarity.id + '">' + (petType ? petType.name : rarity.name) + '</div>' +
+      '<div class="pet-slot-mult">' + (isEquipped && !combineMode ? '✓ ' : '') + 'x' + pet.multiplier + '</div>' +
+    '</div>';
+  });
+  grid.innerHTML = html;
+}
+
+function hasCombinablePets() {
+  if (!state.pets || state.pets.length < 3) return false;
+  var counts = {};
+  state.pets.forEach(function(pet) {
+    var lvl = pet.level || 1;
+    if (lvl >= MAX_PET_LEVEL) return;
+    var key = pet.typeId + '_' + lvl;
+    counts[key] = (counts[key] || 0) + 1;
+  });
+  for (var key in counts) {
+    if (counts[key] >= 3) return true;
+  }
+  return false;
+}
+
+function toggleCombineMode() {
+  if (!hasCombinablePets()) return;
+  combineMode = true;
+  combineSelected = [];
+  document.getElementById('pet-combine-cancel').style.display = '';
+  document.getElementById('pet-combine-btn').style.display = 'none';
+  document.getElementById('pet-equip-info').style.display = 'none';
+  updateCombineStatus();
+  updatePetGrid();
+}
+
+function cancelCombineMode() {
+  combineMode = false;
+  combineSelected = [];
+  document.getElementById('pet-combine-cancel').style.display = 'none';
+  document.getElementById('pet-combine-status').style.display = 'none';
+  updatePetGrid();
+}
+
+function updateCombineStatus() {
+  var statusEl = document.getElementById('pet-combine-status');
+  if (!combineMode) { statusEl.style.display = 'none'; return; }
+  statusEl.style.display = '';
+  statusEl.textContent = 'Veldu 3 eins gæludýr (' + combineSelected.length + '/3)';
+}
+
+function selectForCombine(petId) {
+  if (!combineMode) return;
+  var pet = state.pets.find(function(p) { return p.id === petId; });
+  if (!pet) return;
+  var petLevel = pet.level || 1;
+  if (petLevel >= MAX_PET_LEVEL) return;
+
+  var idx = combineSelected.indexOf(petId);
+  if (idx !== -1) {
+    combineSelected.splice(idx, 1);
+    updateCombineStatus();
+    updatePetGrid();
+    return;
+  }
+
+  if (combineSelected.length > 0) {
+    var firstPet = state.pets.find(function(p) { return p.id === combineSelected[0]; });
+    if (firstPet && (pet.typeId !== firstPet.typeId || petLevel !== (firstPet.level || 1))) return;
+  }
+
+  combineSelected.push(petId);
+  updateCombineStatus();
+
+  if (combineSelected.length === 3) {
+    executeCombine();
+  } else {
+    updatePetGrid();
+  }
+}
+
+function executeCombine() {
+  var pets = combineSelected.map(function(id) { return state.pets.find(function(p) { return p.id === id; }); }).filter(Boolean);
+  if (pets.length !== 3) { cancelCombineMode(); return; }
+
+  var typeId = pets[0].typeId;
+  var level = pets[0].level || 1;
+  if (!pets.every(function(p) { return p.typeId === typeId && (p.level || 1) === level; })) {
+    cancelCombineMode();
+    return;
+  }
+
+  var bestMult = Math.max(pets[0].multiplier, pets[1].multiplier, pets[2].multiplier);
+  var bonus = LEVEL_BONUS[pets[0].rarity] || 0.10;
+  var newMult = +(bestMult + bonus).toFixed(2);
+  var newLevel = level + 1;
+
+  var survivorId = combineSelected[0];
+  var consumedIds = [combineSelected[1], combineSelected[2]];
+
+  if (consumedIds.indexOf(state.equippedPet) !== -1) {
+    state.equippedPet = survivorId;
+  }
+
+  state.pets = state.pets.filter(function(p) { return consumedIds.indexOf(p.id) === -1; });
+
+  var survivor = state.pets.find(function(p) { return p.id === survivorId; });
+  if (survivor) {
+    survivor.level = newLevel;
+    survivor.multiplier = newMult;
+  }
+
+  combineMode = false;
+  combineSelected = [];
+  document.getElementById('pet-combine-cancel').style.display = 'none';
+  document.getElementById('pet-combine-status').style.display = 'none';
+
+  saveGame();
+  updatePetGrid();
+  updateEquippedPetIcon();
+  updateUI();
+
+  if (survivor) showPetResult(survivor);
+}
+
+function updatePetStoreUI() {
+  document.getElementById('pet-balance').textContent = state.rebirthKr;
+  var btn = document.getElementById('pet-roll-btn');
+  btn.className = state.rebirthKr >= PET_ROLL_COST ? '' : 'disabled';
+  btn.id = 'pet-roll-btn';
+  var rareBtn = document.getElementById('rare-roll-btn');
+  rareBtn.className = state.rebirthKr >= RARE_ROLL_COST ? '' : 'disabled';
+  rareBtn.id = 'rare-roll-btn';
+  // Reset crate visibility
+  var crate = document.getElementById('pet-crate');
+  if (!petRolling) { crate.style.display = 'flex'; crate.className = 'pet-crate'; }
+}
+
+function openPetStore() {
+  document.getElementById('pet-overlay').style.display = 'block';
+  document.getElementById('pet-modal').style.display = 'flex';
+  document.getElementById('pet-result').style.display = 'none';
+  combineMode = false;
+  combineSelected = [];
+  document.getElementById('pet-combine-cancel').style.display = 'none';
+  document.getElementById('pet-combine-status').style.display = 'none';
+  updatePetStoreUI();
+  updatePetGrid();
+}
+
+function closePetStore() {
+  document.getElementById('pet-overlay').style.display = 'none';
+  document.getElementById('pet-modal').style.display = 'none';
+  combineMode = false;
+  combineSelected = [];
+  document.getElementById('pet-combine-cancel').style.display = 'none';
+  document.getElementById('pet-combine-status').style.display = 'none';
+}
+
+// ── Init ──
 function init() {
   const hadSave = loadGame();
 
@@ -1181,6 +2031,7 @@ function init() {
   }
 
   updateUI();
+  updateEquippedPetIcon();
 
   // Game loop
   setInterval(tick, 100);
